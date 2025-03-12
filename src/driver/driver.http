@@ -1,0 +1,12 @@
+POST http://localhost:3000/driver
+Content-Type: application/json
+
+{
+  "name": "string",
+  "lastName": "string",
+  "driverLicense": "string",
+  "document": "string",
+  "phone": "string",
+  "email": "string",
+  "password": "string"
+}

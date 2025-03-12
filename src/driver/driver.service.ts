@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { prisma } from 'src/lib/prisma';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
 import { Driver } from './entities/driver.entity';
@@ -8,8 +8,10 @@ const drivers: Driver[] = [];
 
 @Injectable()
 export class DriverService {
+  constructor(private prisma: PrismaService) {}
+
   create(createDriverDto: CreateDriverDto) {
-    const driver = prisma.driver.create({
+    const driver = this.prisma.driver.create({
       data: {
         ...createDriverDto,
         isActive: true
@@ -20,7 +22,7 @@ export class DriverService {
   }
 
   findAll() {
-    const drivers = prisma.driver.findMany();
+    const drivers = this.prisma.driver.findMany();
     return drivers;
   }
 
