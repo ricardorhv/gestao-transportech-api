@@ -1,3 +1,4 @@
+#Create
 POST http://localhost:3000/driver
 Content-Type: application/json
 
@@ -5,8 +6,17 @@ Content-Type: application/json
   "name": "string",
   "lastName": "string",
   "driverLicense": "string",
-  "document": "string",
+  "document": "string1",
   "phone": "string",
-  "email": "string",
+  "email": "ricardorhv1@gmail.com",
   "password": "string"
 }
+
+###
+
+GET http://localhost:3000/driver
+Content-Type: application/json
+
+###
+GET http://localhost:3000/driver/4507c107-af13-4141-8ac3-3fc4d12baab
+Content-Type: application/json

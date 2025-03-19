@@ -1,14 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
 import { Driver } from './entities/driver.entity';
 
-const drivers: Driver[] = [];
-
 @Injectable()
 export class DriverService {
   constructor(private prisma: PrismaService) {}
+
+  private mapToEntity(driver: any): Driver {
+    return {
+      id: driver.id,
+      name: driver.name,
+      lastName: driver.lastName,
+      driverLicense: driver.driverLicense,
+      document: driver.document,
+      phone: driver.phone,
+      isActive: driver.isActive,
+      email: driver.email,
+      password: driver.password
+    }
+  }
 
   create(createDriverDto: CreateDriverDto) {
     const driver = this.prisma.driver.create({
@@ -21,20 +33,63 @@ export class DriverService {
     return driver;
   }
 
-  findAll() {
-    const drivers = this.prisma.driver.findMany();
-    return drivers;
+  async findAll(): Promise<Driver[]> {
+    const drivers = await this.prisma.driver.findMany();
+    return drivers.map((driver) => this.mapToEntity(driver));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} driver`;
+  async findOne(id: string): Promise<Driver | null> {
+    const driver = await this.prisma.driver.findFirst({
+      where: {
+        id
+      }
+    })
+
+    if (!driver) {
+      throw new NotFoundException(`Driver with ID ${id} not found`)
+    }
+
+    return this.mapToEntity(driver);
   }
 
-  update(id: number, updateDriverDto: UpdateDriverDto) {
-    return `This action updates a #${id} driver`;
+  async update(id: string, updateDriverDto: UpdateDriverDto) {
+    const driver = await this.prisma.driver.findFirst({
+      where: {
+        id
+      }
+    })
+
+    if (!driver) {
+      throw new NotFoundException(`Driver with ID ${id} not found`)
+    }
+
+    const userUpdated = await this.prisma.driver.update({
+      data: updateDriverDto,
+      where: {
+        id
+      }
+    })
+
+    return this.mapToEntity(userUpdated);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} driver`;
+  async remove(id: string) {
+    const driver = await this.prisma.driver.findFirst({
+      where: {
+        id
+      }
+    })
+
+    if (!driver) {
+      throw new NotFoundException(`Driver with ID ${id} not found`)
+    }
+
+    const deletedDriver = await this.prisma.driver.delete({
+      where: {
+        id
+      }
+    })
+
+    return this.mapToEntity(deletedDriver);
   }
 }
