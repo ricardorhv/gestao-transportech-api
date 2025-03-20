@@ -6,9 +6,9 @@ Content-Type: application/json
   "name": "string",
   "lastName": "string",
   "driverLicense": "string",
-  "document": "string1",
+  "document": "string2",
   "phone": "string",
-  "email": "ricardorhv1@gmail.com",
+  "email": "ricardorhv1a@gmail.com",
   "password": "string"
 }
 

@@ -14,15 +14,16 @@ datasource db {
 }
 
 model Driver {
-  id            String  @id @default(uuid())
+  id            String   @id @default(uuid())
   name          String
   lastName      String
   driverLicense String
-  document      String  @unique
+  document      String   @unique
   phone         String
   isActive      Boolean
-  email         String  @unique
+  email         String   @unique
   password      String
+  createdAt     DateTime @default(now())
 
   @@map("driver")
 }

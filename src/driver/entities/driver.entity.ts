@@ -8,4 +8,5 @@ export class Driver {
   isActive: boolean;
   email: string;
   password: string;
+  createdAt: Date;
 }
