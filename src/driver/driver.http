@@ -3,13 +3,13 @@ POST http://localhost:3000/driver
 Content-Type: application/json
 
 {
-  "name": "string",
-  "lastName": "string",
-  "driverLicense": "string",
-  "document": "string2",
-  "phone": "string",
-  "email": "ricardorhv1a@gmail.com",
-  "password": "string"
+  "name": "Juliana",
+  "lastName": "Rocha",
+  "driverLicense": "PRK314592",
+  "document": "654.321.098-76",
+  "phone": "(41) 93456-7890",
+  "email": "ju.motorista@outlook.com",
+  "password": "logistica10"
 }
 
 ###
