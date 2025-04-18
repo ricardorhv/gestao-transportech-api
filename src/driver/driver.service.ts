@@ -55,7 +55,6 @@ export class DriverService {
     const driver = await this.prisma.driver.create({
       data: {
         ...createDriverDto,
-        isActive: true
       }
     })
     return driver;
