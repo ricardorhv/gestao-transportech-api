@@ -61,7 +61,11 @@ export class DriverService {
   }
 
   async findAll(): Promise<Driver[]> {
-    const drivers = await this.prisma.driver.findMany()
+    const drivers = await this.prisma.driver.findMany({
+      orderBy: {
+        createdAt: "desc"
+      }
+    })
     return drivers.map(driver => this.mapToEntity(driver));
   }
 
